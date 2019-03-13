@@ -13,7 +13,7 @@ def main():
     df = pd.DataFrame(data= np.c_[iris['data'], iris['target']],
                         columns= iris['feature_names'] + ['target'])
 
-    f,a = features.faced_ratios(df, df.columns[:-1].values, 'target')
+    f,a = features.faced_ratios(df, df.columns[:-1].values, 'target', n_rows=2, n_cols=2)
     plt.show()
 
 main()
