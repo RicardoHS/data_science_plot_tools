@@ -63,6 +63,15 @@ def faced_ratios(dataframe, colums, class_column, n_rows=2, n_cols=3, plot_area=
             curr_ax.legend(legend)
 
         curr_ax.set_xlabel(col)
+        curr_ax.set_xticks(range(col_levels.shape[0]))
         curr_ax.set_xticklabels(col_levels)
+
+        # if there are to much ticks
+        x_ticks = curr_ax.xaxis.get_ticklabels()
+        if len(x_ticks) > 20:
+            every_nth = 5
+            for n, label in enumerate(curr_ax.xaxis.get_ticklabels()):
+                if n % every_nth != 0:
+                    label.set_visible(False)
     return fig, ax
 
