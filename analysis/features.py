@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-def faced_ratios(dataframe, colums, class_column, n_rows=2, n_cols=3, plot_area=True, legend=True, colors=None, figure=None):
+def faced_ratios(dataframe, colums, class_column, n_rows=2, n_cols=3, plot_area=True, y_lim=None, legend=True, colors=None, figure=None):
     if not colors:
         colors = ['blue', 'green', 'red', 'cyan', 'magenta', 'yellow', 'grey']
 
@@ -61,6 +61,9 @@ def faced_ratios(dataframe, colums, class_column, n_rows=2, n_cols=3, plot_area=
         if legend:
             legend = [f'{class_column}={t_v}' for t_v in target_values]
             curr_ax.legend(legend)
+
+        if y_lim:
+            curr_ax.set_ylim(y_lim)
 
         curr_ax.set_xlabel(col)
         curr_ax.set_xticks(range(col_levels.shape[0]))
