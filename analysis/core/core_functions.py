@@ -13,9 +13,10 @@ def target_encode(df, by, on, m=300):
     Target encode a dataframe column using smooth mean
     https://maxhalford.github.io/blog/target-encoding-done-the-right-way/
 
-    returns the column 'by' encoded
+    returns the column 'by' encoded as pd.Series and the dict with the mapping
     '''
-    return df[by].map(smooth_mean(df, by, on, m))
+    target_encoding = smooth_mean_dict(df, by, on, m)
+    return df[by].map(target_encoding), target_encoding
 
 def smooth_mean(df, by, on, m):
     # Compute the global mean
