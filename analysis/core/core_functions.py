@@ -16,6 +16,7 @@ def target_encode(df, by, on, m=300):
     returns the column 'by' encoded as pd.Series and the dict with the mapping
     ////
     TODO: http://docs.h2o.ai/h2o/latest-stable/h2o-docs/data-munging/target-encoding.html
+    docs: https://www.kaggle.com/c/porto-seguro-safe-driver-prediction/discussion/44659
     implement 
     holdout_type: whether or not a holdout should be used in constructing the target average
     blended_avg: whether to perform a blended average
