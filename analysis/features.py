@@ -146,3 +146,21 @@ def faced_ratios(dataframe, colums, class_column, n_rows=2, n_cols=3, plot_area=
                     label.set_visible(False)
     return fig, ax
 
+def prediction_probas(y_true, y_pred_probas):
+    y_pred = np.argmax(y_pred_probas, axis=1)
+    n_classes = np.unique(y_pred)
+    fig, ax = plt.subplots(3,n_classes.shape[0])
+    fig.set_size_inches((7*n_classes.shape[0],10))
+    for class_n in sorted(n_classes):
+        correct_preds = pd.Series(y_pred_probas[(y_true == y_pred) & (y_pred == class_n)][:,class_n], name="Correct")
+        wrong_preds = pd.Series(y_pred_probas[(y_true != y_pred) & (y_pred == class_n)][:,class_n], name="Wrong")
+        x = pd.Series(y_pred_probas[:,class_n], name="All")
+
+        _ = sns.distplot(x, bins=20, kde=True, ax=ax[0][class_n], color='b', norm_hist=True).set(xlim=(0, 1))
+        _ = sns.distplot(correct_preds, bins=20, kde=True, ax=ax[1][class_n], color='g', norm_hist=True).set(xlim=(0, 1))
+        _ = sns.distplot(wrong_preds, bins=20, kde=True, ax=ax[2][class_n], color='r', norm_hist=True).set(xlim=(0, 1))
+
+
+        ax[0][class_n].set_title(f'Model probability histogram, Class {class_n}')
+        ax[0][class_n].set_ylabel('Number of y_pred')
+    return fig, ax
