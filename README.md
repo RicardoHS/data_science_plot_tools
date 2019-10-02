@@ -10,3 +10,5 @@ Run in examples:
 
 `python3 example_faced_areas.py`
 ![alt text](https://i.imgur.com/LTHb2aq.png)
+
+this is just a test
