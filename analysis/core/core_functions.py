@@ -39,3 +39,22 @@ def smooth_mean(df, by, on, m):
 
 def smooth_mean_dict(df, by, on, m):
     return smooth_mean(df, by, on, m).to_dict()
+
+def correspondence_table(df, columns, table=True, freq=False):
+    if len(columns)!=2:
+        print('Columns must be exactly two.')
+        return
+
+    df_table = df.groupby(columns).size().reset_index(name='count').pivot(index=columns[0], columns=columns[1], values='count').fillna(0)
+    if table:
+        axis0 = df_table.sum(axis=0)
+        df_table.loc['SUM'] = axis0
+        axis1 = df_table.sum(axis=1)
+        df_table['SUM'] = axis1
+        max_axis = df_table.loc['SUM', ['SUM']].values
+        if freq:
+            df_table.loc['SUM'] = df_table.loc['SUM']/max_axis
+            df_table['SUM'] = df_table['SUM']/max_axis
+            df_table.loc['SUM', ['SUM']] = 1
+
+    return df_table
